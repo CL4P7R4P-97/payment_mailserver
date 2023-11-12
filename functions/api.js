@@ -8,26 +8,22 @@ const serverless = require('serverless-http');
 
 
 const router = express.Router();
-const allowedOrigins = ['https://master--peaceful-pie-f1123f.netlify.app'];
-app.use(cors({
-  origin: function(origin, callback){
-    if (!origin) {
-      return callback(null, true);
-    }
+var whitelist = ['https://master--peaceful-pie-f1123f.netlify.app'];
 
-    if (allowedOrigins.includes(origin)) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
     }
-    return callback(null, true);
   }
-
-}));
+}
 app.use(express.json());
  
  
 
-router.get("/", (req, res) => {
+router.get("/",cors(corsOptions), (req, res) => {
   res.send("Welcome to eShop website.");
 });
 
@@ -47,7 +43,7 @@ const calculateOrderAmount = (items) => {
 
 router.use(bodyParser.json());
 
-router.post('/sendOrderEmail', (req, res) => {
+router.post('/sendOrderEmail',cors(corsOptions), (req, res) => {
 
   console.log("sending mail")
   const { to, subject, body } = req.body;
@@ -76,7 +72,7 @@ router.post('/sendOrderEmail', (req, res) => {
   });
 });
 
-router.post("/create-payment-intent", async (req, res) => {
+router.post("/create-payment-intent",cors(corsOptions), async (req, res) => {
   const { items, shipping, description } = req.body;
 
   // Create a PaymentIntent with the order amount and currency..
