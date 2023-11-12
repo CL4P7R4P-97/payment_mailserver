@@ -8,13 +8,14 @@ const serverless = require('serverless-http');
 
 
 const router = express.Router();
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+const corsOptions = {
+  origin: 'https://master--peaceful-pie-f1123f.netlify.app/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
  
 app.use(express.json());
  
@@ -39,6 +40,8 @@ const calculateOrderAmount = (items) => {
 };
 
 router.use(bodyParser.json());
+
+app.use(cors(corsOptions));
 
 router.post('/sendOrderEmail', (req, res) => {
 
@@ -68,6 +71,8 @@ router.post('/sendOrderEmail', (req, res) => {
     res.status(200).send('Email sent: ' + info.response);
   });
 });
+
+app.use(cors(corsOptions));
 
 router.post("/create-payment-intent", async (req, res) => {
   const { items, shipping, description } = req.body;
