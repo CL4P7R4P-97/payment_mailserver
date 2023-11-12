@@ -14,7 +14,7 @@ app.use(express.json());
  
  
 
-router.get("/", (req, res) => {
+router.get("/", cors(),(req, res) => {
   res.send("Welcome to eShop website.");
 });
 
@@ -34,7 +34,7 @@ const calculateOrderAmount = (items) => {
 
 router.use(bodyParser.json());
 
-router.post('/sendOrderEmail', (req, res) => {
+router.post('/sendOrderEmail',cors(), (req, res) => {
 
   console.log("sending mail")
   const { to, subject, body } = req.body;
@@ -63,7 +63,7 @@ router.post('/sendOrderEmail', (req, res) => {
   });
 });
 
-router.post("/create-payment-intent", async (req, res) => {
+router.post("/create-payment-intent",cors(), async (req, res) => {
   const { items, shipping, description } = req.body;
 
   // Create a PaymentIntent with the order amount and currency..
