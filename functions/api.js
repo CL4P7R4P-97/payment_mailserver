@@ -6,10 +6,10 @@ const bodyParser = require('body-parser');
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 const serverless = require('serverless-http');
 
-
+const app = express();
 const router = express.Router();
 const corsOptions = {
-  origin: 'https://master--peaceful-pie-f1123f.netlify.app/',
+  origin: 'https://peaceful-pie-f1123f.netlify.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
