@@ -8,20 +8,7 @@ const serverless = require('serverless-http');
 
 
 const router = express.Router();
-const whitelist = ["https://master--peaceful-pie-f1123f.netlify.app"]
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      console.log(origin);
-      callback(null, true)
-    } else {
-      console.log("notAllowed");
-      callback(new Error("Not allowed by CORS"))
-    }
-  },
-  credentials: true,
-}
-app.use(cors(corsOptions))
+app.use(cors());
  
 app.use(express.json());
  
