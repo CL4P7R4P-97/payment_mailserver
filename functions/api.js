@@ -15,7 +15,7 @@ const path = require("path");
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
   router.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "dist", "index.html"));
   });
 }
 
