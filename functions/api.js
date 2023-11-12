@@ -8,13 +8,19 @@ const serverless = require('serverless-http');
 
 
 const router = express.Router();
-app.use(cors());
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
  
 app.use(express.json());
  
  
 
-router.get("/", cors(),(req, res) => {
+router.get("/", (req, res) => {
   res.send("Welcome to eShop website.");
 });
 
@@ -34,7 +40,7 @@ const calculateOrderAmount = (items) => {
 
 router.use(bodyParser.json());
 
-router.post('/sendOrderEmail',cors(), (req, res) => {
+router.post('/sendOrderEmail', (req, res) => {
 
   console.log("sending mail")
   const { to, subject, body } = req.body;
@@ -63,7 +69,7 @@ router.post('/sendOrderEmail',cors(), (req, res) => {
   });
 });
 
-router.post("/create-payment-intent",cors(), async (req, res) => {
+router.post("/create-payment-intent", async (req, res) => {
   const { items, shipping, description } = req.body;
 
   // Create a PaymentIntent with the order amount and currency..
