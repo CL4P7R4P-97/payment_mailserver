@@ -8,7 +8,21 @@ const serverless = require('serverless-http');
 
 
 const router = express.Router();
-app.use(cors());
+const allowedOrigins = ['https://master--peaceful-pie-f1123f.netlify.app'];
+app.use(cors({
+  origin: function(origin, callback){
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+
+}));
 app.use(express.json());
  
  
