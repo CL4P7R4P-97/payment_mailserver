@@ -99,4 +99,4 @@ router.post("/create-payment-intent", async (req, res) => {
 });
 
 app.use('/.netlify/functions/api',router);
-module.exports.handler = serverless(http);
+module.exports.handler = serverless(api);
