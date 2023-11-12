@@ -6,18 +6,12 @@ const bodyParser = require('body-parser');
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 const serverless = require('serverless-http');
 
-const app = express();
+
 const router = express.Router();
 app.use(cors());
 app.use(express.json());
-const path = require("path");
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("dist"));
-  router.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "dist", "index.html"));
-  });
-}
+ 
+ 
 
 router.get("/", (req, res) => {
   res.send("Welcome to eShop website.");
