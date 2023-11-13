@@ -1,6 +1,6 @@
-# eShop Serverless API
+# reactShop Serverless API
 
-This serverless API handles email sending and payment processing for the eShop website.
+This serverless API handles email sending and payment processing for the reactShop website.
 
 ## Prerequisites
 - Node.js and npm installed on your machine.
