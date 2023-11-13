@@ -2,6 +2,8 @@
 
 This serverless API handles email sending and payment processing for the reactShop website.
 
+##Server Status check at: [Here](https://tranquil-cocada-3b715c.netlify.app/.netlify/functions/api)
+
 ## Prerequisites
 - Node.js and npm installed on your machine.
 - Stripe account for handling payments.
